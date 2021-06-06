@@ -134,3 +134,13 @@ video{
     border-radius: 50%;
     color: white;
 }
+
+#gallery{
+    position: fixed;
+    z-index: 3;
+    right: 2rem;
+    height: 5rem;
+    width: 5rem;
+    bottom: 5rem;
+    cursor: pointer;
+}

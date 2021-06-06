@@ -3,6 +3,7 @@ let audio = document.querySelector("audio");
 let body = document.querySelector("body");
 let btn = document.querySelector("button#record");
 let capBtn = document.querySelector("button#capture");
+let galleryBtn = document.querySelector("#gallery");
 let constraints = {video: true,audio:true};
 let mediaRecorder;
 let isRecording = false;
@@ -16,6 +17,10 @@ let zoomOut = document.querySelector(".zoom-out");
 let minZoom = 1;
 let maxZoom = 3;
 let currZoom = 1;
+
+galleryBtn.addEventListener("click",function(){
+    location.assign("gallery.html");
+})
 
 for(let i=0;i<filters.length;i++){
     filters[i].addEventListener("click",function(e){
@@ -64,11 +69,12 @@ navigator.mediaDevices.getUserMedia(constraints).then(function(mediaStream){
         let blob = new Blob(chunks,{type:"video/mp4"});
         chunks = [];
         let url = URL.createObjectURL(blob);
-        let a = document.createElement("a");
-        a.href = url;
-        a.download = "video.mp4";
-        a.click();
-        a.remove();
+        // let a = document.createElement("a");
+        // a.href = url;
+        // a.download = "video.mp4";
+        addMedia("video",blob);
+        // a.click();
+        // a.remove();
     });
     //blob = some big file made using small pieces/chunks
     //this event is called when record button is pressed
@@ -124,14 +130,15 @@ function capture(){
         ctx.fillStyle = filter;
         ctx.fillRect(0,0,c.width,c.height);
     }
-    let a = document.createElement("a");
-    a.download = "image.jpg";
+    // let a = document.createElement("a");
+    // a.download = "image.jpg";
     //reason for using canvas
     //jo bhi canvas me yeh vo data url me convert ho jaega
     //ab href we can download easily 
-    a.href = c.toDataURL();
-    a.click();
-    a.remove();
+    // a.href = c.toDataURL();
+    addMedia("img",c.toDataURL());
+    // a.click();
+    // a.remove();
 }
 
 function applyFilter(filterColor){
